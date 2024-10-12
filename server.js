@@ -1,9 +1,8 @@
 import express from 'express';
 import debug from 'debug';
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
 import expressLayouts from 'express-ejs-layouts';
-import indexRoutes from './routes/index.js';
+import { indexRoutes } from './routes/index.js';
 
 dotenv.config();
 
@@ -21,19 +20,14 @@ app.set('layout', 'layouts/layout');
 app.use(expressLayouts);
 app.use(express.static('public'));
 
-mongoose.connect(process.env.DATABASE_URL);
-const db = mongoose.connection;
-db.on('error', (error) => console.error(error));
-db.once('open', () => debugServer('Connected to Database'));
-
 // Error handling middleware
 app.use((err, req, res, next) => {
   debugServer(`Error: ${err.message}`);
   res.status(500).json({ message: 'Internal Server Error', error: err.message });
 });
 
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  debugServer(`Server is running on http://localhost:${PORT}`);
+app.listen(port, () => {
+  debugServer(`Server is running on http://localhost:${port}`);
 });
