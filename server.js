@@ -29,6 +29,12 @@ const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => debugServer('Connected to Database'));
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  debugServer(`Error: ${err.message}`);
+  res.status(500).json({ message: 'Internal Server Error', error: err.message });
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
