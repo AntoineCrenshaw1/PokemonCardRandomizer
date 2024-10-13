@@ -14,9 +14,8 @@ app.use(express.static('frontend/dist'))
 
 app.use('/', indexRoutes);
 
-app.set('view engine', 'ejs');
-app.set('views', './views');
-app.use(express.static('public'));
+
+app.use(express.static('frontend/dist'));
 
 const port = process.env.PORT || 3000;
 
