@@ -25,6 +25,7 @@ async function connect() {
 async function ping(){
   const db = await connect();
   const pong = await db.command({ ping: 1 });
+  console.log('Ping function reached')
   debugDb(`Ping: ${JSON.stringify(pong)}`);
 }
 
