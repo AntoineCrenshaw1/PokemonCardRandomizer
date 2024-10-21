@@ -25,3 +25,33 @@ body {
     text-wrap: balance;
   }
 }
+
+button {
+  padding: 5px;
+  background-color: red;
+  color: black;
+  text-align: center;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgba(230, 0, 0, 0.74);
+}
+
+.card-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.card {
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: scale(1.05);
+}
+img {
+  width: 150px;
+}
