@@ -7,7 +7,7 @@ const fetchCards = async (req, res) => {
   const apiUrl = `https://api.pokemontcg.io/v2/cards?pageSize=${pageSize}&page=${page}`;
   console.log(`Fetching from URL: ${apiUrl}`);
 
-  const apiKey = process.env.REACT_APP_API_KEY;
+  const apiKey = process.env.local.REACT_APP_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'API key is missing' });
   }
