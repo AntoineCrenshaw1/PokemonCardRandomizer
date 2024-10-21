@@ -38,7 +38,7 @@ describe('fetchCards', () => {
       json: jest.fn(),
     };
 
-    process.env.REACT_APP_API_KEY = '';
+    process.env.local.REACT_APP_API_KEY = '';
 
     await fetchCards(req, res);
 
