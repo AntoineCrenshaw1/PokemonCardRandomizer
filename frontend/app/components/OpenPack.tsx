@@ -4,7 +4,7 @@ import React from "react";
 const OpenPack = () => {
   return (
     <div>
-      <button onClick={() => console.log("Pack opened")}>Open Pack</button>
+      <button onClick={() => console.log("Pack opened")}></button>
     </div>
   );
 };

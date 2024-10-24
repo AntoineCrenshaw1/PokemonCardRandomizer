@@ -1,12 +1,12 @@
-import React from 'react'
-import OpenPack from './OpenPack';
+import React from "react";
+import OpenPack from "./OpenPack";
 
 const OpenPackButton = () => {
   return (
     <div>
-     <OpenPack />
+      <OpenPack />
     </div>
-  )
-}
+  );
+};
 
-export default OpenPackButton
+export default OpenPackButton;
