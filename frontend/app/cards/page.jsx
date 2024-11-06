@@ -14,11 +14,9 @@ const PackOpener = () => {
   // Define rarity weights
   const rarityWeights = {
     Common: 0.6,
-    Uncommon: 0.3,
-    Rare: 0.08,
-    "Rare Holo": 0.05,
-    "Rare Ultra": 0.03,
-    "Ultra Rare": 0.02,
+    Uncommon: 0.4,
+    Rare: 0.25,
+    "Rare Holo": 0.15,
   };
 
   // Helper function to get weighted random cards
@@ -26,13 +24,14 @@ const PackOpener = () => {
     const groupedCards = _.groupBy(cards, "rarity");
 
     // Select cards based on rarity probabilities
+    // 6 common cards, 3 uncommon cards, 1 rare card, and 1 rare holo card
     let selectedCards = [];
     for (const [rarity, weight] of Object.entries(rarityWeights)) {
       const rarityGroup = groupedCards[rarity] || [];
       const count = Math.round(weight * numCards); // Number of cards to pick per rarity
       selectedCards = [...selectedCards, ..._.sampleSize(rarityGroup, count)];
     }
-    return _.shuffle(selectedCards).slice(0, numCards); // Randomize selection and limit to numCards
+    return selectedCards.slice(0, numCards); // Randomize selection and limit to numCards
   };
 
   const close = () => {
@@ -89,7 +88,14 @@ const PackOpener = () => {
           height={550}
           className="mx-auto"
         />
-        <p className="mx-auto">Click below to open a pack</p>
+        <Image
+          src="https://images.pokemontcg.io/ex1/logo.png"
+          alt="Ruby & Sapphire Logo"
+          width={200}
+          height={200}
+          className="mx-auto"
+        />
+
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.85 }}
