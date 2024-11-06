@@ -70,7 +70,12 @@ const PackOpener = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  if (loading) return <div className="spinner"></div>;
 
   if (error) return <p className="error">{error}</p>;
 
@@ -91,33 +96,40 @@ const PackOpener = () => {
           className="btn btn-danger"
           onClick={() => (packOpened ? close() : open())}
         >
-          Open Pack
+          Open New Pack
         </motion.button>
-        {packOpened && !loading && (
-          <div className="card-container mx-auto">
-            {_.map(cards, (pokemon, index) => (
-              <div key={pokemon.id || index} className="card">
-                {pokemon.images?.large ? (
-                  <Image
-                    src={pokemon.images.large}
-                    width={350}
-                    height={350}
-                    alt={pokemon.name}
-                  />
-                ) : (
-                  <Image
-                    src="https://dummyimage.com/300"
-                    width={300}
-                    height={300}
-                    alt="Placeholder"
-                  />
-                )}
-                <h3>Name: {pokemon.name}</h3>
-                <p> Rarity: {pokemon.rarity || "Unknown"}</p>
-                <p>Type(s): {pokemon.types?.join(", ") || "Unknown"}</p>
-              </div>
+        {packOpened && (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+            className="card-container"
+          >
+            {cards.map((card) => (
+              <motion.div
+                key={card.id}
+                variants={cardVariants}
+                className="card"
+              >
+                <Image
+                  src={card.images.large}
+                  alt={card.name}
+                  width={300}
+                  height={300}
+                />
+                <h3>{card.name}</h3>
+                <p>Rarity: {card.rarity || "Unknown"}</p>
+                <p>Set: {card.set.series}</p>
+                <p>Type: {card.types.join(",")}</p>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
       </div>
     </div>
