@@ -86,3 +86,15 @@ h1 {
   animation: spin 1s ease-in-out infinite;
   margin: auto;
 }
+
+.card-back {
+backface-visibility: hidden;
+height: 100%;
+left: 0px;
+position: relative;
+top: 0px;
+transform: rotateY(0deg);
+transform-style: preserve-3d;
+transition: 0.6s;
+width: 100%;
+}
