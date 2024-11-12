@@ -11,27 +11,19 @@ const PackOpener = () => {
   const [error, setError] = useState(null);
   const [packOpened, setPackOpened] = useState(false);
 
-  // Define rarity weights
-  const rarityWeights = {
-    Common: 0.6,
-    Uncommon: 0.4,
-    Rare: 0.25,
-    "Rare Holo": 0.15,
-  };
-
-  // Helper function to get weighted random cards
-  const getWeightedRandomCards = (cards, numCards) => {
+  // Helper function to get cards by specified rarity counts
+  const getRandomPack = (cards) => {
     const groupedCards = _.groupBy(cards, "rarity");
 
-    // Select cards based on rarity probabilities
-    // 6 common cards, 3 uncommon cards, 1 rare card, and 1 rare holo card
-    let selectedCards = [];
-    for (const [rarity, weight] of Object.entries(rarityWeights)) {
-      const rarityGroup = groupedCards[rarity] || [];
-      const count = Math.round(weight * numCards); // Number of cards to pick per rarity
-      selectedCards = [...selectedCards, ..._.sampleSize(rarityGroup, count)];
-    }
-    return selectedCards.slice(0, numCards); // Randomize selection and limit to numCards
+    // Select cards to meet the required pack composition
+    const selectedCards = [
+      ..._.sampleSize(groupedCards["Common"] || [], 4),       // 4 common cards
+      ..._.sampleSize(groupedCards["Uncommon"] || [], 3),     // 3 uncommon cards
+      ..._.sampleSize(groupedCards["Rare Holo"] || [], 2),    // 2 foils
+      ..._.sampleSize(groupedCards["Rare"] || [], 1),         // 1 rare
+    ];
+
+    return _.shuffle(selectedCards).slice(0, 10); // Shuffle and limit to 10 cards
   };
 
   const close = () => {
@@ -46,7 +38,7 @@ const PackOpener = () => {
       setError(null);
       console.log("Started fetching");
 
-      const response = await axios.get("https://api.pokemontcg.io/v2/cards", {
+      const response = await axios.get("https://api.pokemontcg.io/v2/cards?q=set.series:'Sword & Shield'", {
         headers: {
           "X-Api-Key": process.env.NEXT_PUBLIC_POKEMON_API_KEY, // Using environment variable for API key
         },
@@ -56,7 +48,7 @@ const PackOpener = () => {
       console.log("Finished fetching", pokemonData);
 
       if (pokemonData) {
-        const randomCards = getWeightedRandomCards(pokemonData.data, 10); // Select 10 random cards
+        const randomCards = getRandomPack(pokemonData.data); // Get 10 cards according to the pack rules
         setCards(randomCards);
       } else {
         setError("Failed to open pack");
