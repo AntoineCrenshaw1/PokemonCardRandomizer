@@ -38,7 +38,7 @@ const PackOpener = () => {
       setError(null);
       console.log("Started fetching");
 
-      const response = await axios.get("https://api.pokemontcg.io/v2/cards?q=set.series:'Sword & Shield'", {
+      const response = await axios.get("https://api.pokemontcg.io/v2/cards", {
         headers: {
           "X-Api-Key": process.env.NEXT_PUBLIC_POKEMON_API_KEY, // Using environment variable for API key
         },
