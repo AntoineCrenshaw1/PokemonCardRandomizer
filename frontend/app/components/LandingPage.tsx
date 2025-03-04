@@ -13,14 +13,14 @@ export default function LandingPage() {
             Experience the thrill of opening Pokémon card packs digitally. Each pack contains a variety of cards, including Pokémon, consumables, and more. Our sophisticated algorithm generates cards randomly, with rarity levels mirroring their real-world counterparts for an authentic experience.
           </p>
           
-          <p className="text-lg text-gray-700 leading-relaxed">
+          <span className="text-lg text-gray-700 leading-relaxed">
             We&aps;re committed to enhancing your experience with regular updates. Planned features include:
             <ul className="list-disc list-inside mt-2 space-y-1">
               <li>Card collection storage for registered users</li>
               <li>Trading functionality between players</li>
               <li>Additional exciting features in development</li>
             </ul>
-          </p>
+          </span>
           
           <p className="text-sm text-gray-500 italic">
             Disclaimer: This simulator uses data from the Pokémon TCG API. All cards are virtual and intended solely for entertainment purposes. No physical cards are distributed through this platform.
